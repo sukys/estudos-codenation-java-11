@@ -3,7 +3,6 @@ package com.challenge.service.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.challenge.entity.Acceleration;
@@ -14,24 +13,24 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class AccelerationService implements AccelerationServiceInterface  {
+public class AccelerationService implements AccelerationServiceInterface {
 
-    private AccelerationRepository accelerationRepository;
+	private AccelerationRepository accelerationRepository;
 
-    @Override
-    public Optional<Acceleration> findById(Long id) {
-        return accelerationRepository.findById(id);
-    }
+	@Override
+	public Optional<Acceleration> findById(Long id) {
+		return accelerationRepository.findById(id);
+	}
 
-    @Override
-    public List<Acceleration> findByCompanyId(Long companyId, Pageable pageable) {
-        return accelerationRepository.findByCandidatesIdCompanyId(companyId, pageable).getContent();
-    }
+	@Override
+	public List<Acceleration> findByCompanyId(Long companyId) {
+		return accelerationRepository.findByCandidatesIdCompanyId(companyId);
+	}
 
-    @Override
-    public Acceleration save(Acceleration entity) {
-    	return accelerationRepository.save(entity); 
-    }
+	@Override
+	public Acceleration save(Acceleration entity) {
+		return accelerationRepository.save(entity);
+	}
 
 	@Override
 	public void delete(Long id) {
@@ -39,8 +38,8 @@ public class AccelerationService implements AccelerationServiceInterface  {
 	}
 
 	@Override
-	public List<Acceleration> findAll(Pageable pageable) {
-		return accelerationRepository.findAll(pageable).getContent(); 
+	public List<Acceleration> findAll() {
+		return accelerationRepository.findAll();
 	}
-    
+
 }

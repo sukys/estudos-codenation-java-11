@@ -3,7 +3,6 @@ package com.challenge.endpoints;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,8 +43,8 @@ public class SubmissionEndpoint {
 	}
 	
 	@GetMapping
-	public List<SubmissionDTO> findAll(Pageable pageable) {
-		return submissionMapper.map(this.submissionService.findAll(pageable));
+	public List<SubmissionDTO> findAll() {
+		return submissionMapper.map(this.submissionService.findAll());
 	}
 	
 	
@@ -56,9 +55,9 @@ public class SubmissionEndpoint {
 	}
 
 	@GetMapping("/challenge/{challengeId}/acceleration/{accelerationId}")
-	List<SubmissionDTO> findByChallengeIdAndAccelerationId(@PathVariable("challengeId") Long challengeId,	@PathVariable("accelerationId") Long accelerationId, Pageable pageable) {
+	List<SubmissionDTO> findByChallengeIdAndAccelerationId(@PathVariable("challengeId") Long challengeId, @PathVariable("accelerationId") Long accelerationId) {
 		return submissionMapper
-				.map(this.submissionService.findByChallengeIdAndAccelerationId(challengeId, accelerationId, pageable));
+				.map(this.submissionService.findByChallengeIdAndAccelerationId(challengeId, accelerationId));
 	}
 
 }

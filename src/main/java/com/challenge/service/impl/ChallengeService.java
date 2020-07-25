@@ -1,25 +1,25 @@
 package com.challenge.service.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.challenge.entity.Challenge;
 import com.challenge.repository.ChallengeRepository;
 import com.challenge.service.interfaces.ChallengeServiceInterface;
+
 import lombok.AllArgsConstructor;
-
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @AllArgsConstructor
 @Service
 public class ChallengeService implements ChallengeServiceInterface {
 
-    private ChallengeRepository repository;
+	private ChallengeRepository repository;
 
-    @Override
-    public List<Challenge> findByAccelerationIdAndUserId(Long accelerationId, Long userId, Pageable pageable) {
-        return repository.findByAccelerationIdAndUserId(accelerationId, userId, pageable).getContent();
-    }
+	@Override
+	public List<Challenge> findByAccelerationIdAndUserId(Long accelerationId, Long userId) {
+		return repository.findByAccelerationIdAndUserId(accelerationId, userId);
+	}
 
 	@Override
 	public Challenge save(Challenge challenge) {
@@ -32,8 +32,8 @@ public class ChallengeService implements ChallengeServiceInterface {
 	}
 
 	@Override
-	public List<Challenge> findAll(Pageable pageable) {
-		return repository.findAll(pageable).getContent();
+	public List<Challenge> findAll() {
+		return repository.findAll();
 	}
 
 }

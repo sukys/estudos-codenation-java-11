@@ -5,7 +5,6 @@ import java.util.List;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,8 +40,8 @@ public class AccelerationEndpoint {
 	}
 
 	@GetMapping
-	public List<Acceleration> findAll(Pageable pageable) {
-		return this.accelerationService.findAll(pageable);
+	public List<Acceleration> findAll() {
+		return this.accelerationService.findAll();
 	}
 
 	@GetMapping("/{id}")
@@ -51,7 +50,7 @@ public class AccelerationEndpoint {
 	}
 
 	@GetMapping("/company/{id}")
-	public List<Acceleration> findByCompanyId(@PathParam("id") Long id, Pageable pageable) {
-		return this.accelerationService.findByCompanyId(id, pageable);
+	public List<Acceleration> findByCompanyId(@PathParam("id") Long id) {
+		return this.accelerationService.findByCompanyId(id);
 	}
 }

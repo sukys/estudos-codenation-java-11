@@ -3,7 +3,6 @@ package com.challenge.endpoints;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,8 +38,8 @@ public class UserEndpoint {
 	}
 	
 	@GetMapping
-	public List<User> findAll(Pageable pageable) {
-		return this.userService.findAll(pageable);
+	public List<User> findAll() {
+		return this.userService.findAll();
 	}
 	
 	@GetMapping("/{id}")
@@ -49,13 +48,13 @@ public class UserEndpoint {
 	}
 
 	@GetMapping("/acceleration/{name}")
-    List<User> findByAccelerationName(@PathVariable("name") String name, Pageable pageable){
-    	return this.userService.findByAccelerationName(name, pageable);
+    List<User> findByAccelerationName(@PathVariable("name") String name){
+    	return this.userService.findByAccelerationName(name);
     }
 
 	@GetMapping("/company/{id}")
-	List<User> findByCompanyId(@PathVariable("id") Long id, Pageable pageable){
-    	return this.userService.findByCompanyId(id, pageable);
+	List<User> findByCompanyId(@PathVariable("id") Long id){
+    	return this.userService.findByCompanyId(id);
     }
 	
 }

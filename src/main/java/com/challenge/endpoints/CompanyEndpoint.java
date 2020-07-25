@@ -3,7 +3,6 @@ package com.challenge.endpoints;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,40 +21,40 @@ public class CompanyEndpoint {
 
 	@Autowired
 	private CompanyServiceInterface companyService;
-	
+
 	@PostMapping
 	public Company create(@RequestBody Company company) {
 		return this.companyService.save(company);
 	}
-	
+
 	@PutMapping
 	public Company update(@RequestBody Company company) {
 		return this.companyService.save(company);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Long id) {
 		this.companyService.delete(id);
 	}
-	
+
 	@GetMapping
-	public List<Company> findAll(Pageable pageable) {
-		return this.companyService.findAll(pageable);
+	public List<Company> findAll() {
+		return this.companyService.findAll();
 	}
-	
+
 	@GetMapping("/{id}")
 	public Company findById(@PathVariable("id") Long id) {
 		return this.companyService.findById(id).get();
 	}
 
 	@GetMapping("/acceleration/{id}")
-    List<Company> findByAccelerationId(@PathVariable("id") Long id, Pageable pageable){
-			return this.companyService.findByAccelerationId(id, pageable);
+	List<Company> findByAccelerationId(@PathVariable("id") Long id) {
+		return this.companyService.findByAccelerationId(id);
 	}
 
 	@GetMapping("/user/{id}")
-    List<Company> findByUserId(@PathVariable("id") Long id, Pageable pageable){
-		return this.companyService.findByUserId(id, pageable);
+	List<Company> findByUserId(@PathVariable("id") Long id) {
+		return this.companyService.findByUserId(id);
 	}
 
 }

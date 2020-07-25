@@ -3,7 +3,6 @@ package com.challenge.endpoints;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,8 +44,8 @@ public class CandidateEndpoint {
 	}
 
 	@GetMapping
-	public List<CandidateDTO> findAll(Pageable pageable) {
-		return candidateMapper.map(this.candidateService.findAll(pageable));
+	public List<CandidateDTO> findAll() {
+		return candidateMapper.map(this.candidateService.findAll());
 	}
 
 	@GetMapping("/{userId}/{companyId}/{accelerationId}")
@@ -56,13 +55,12 @@ public class CandidateEndpoint {
 	}
 
 	@GetMapping("/company/{id}")
-	public List<CandidateDTO> findByCompanyId(@PathVariable("id") Long id, Pageable pageable) {
-		return candidateMapper.map(this.candidateService.findByCompanyId(id, pageable));
+	public List<CandidateDTO> findByCompanyId(@PathVariable("id") Long id) {
+		return candidateMapper.map(this.candidateService.findByCompanyId(id));
 	}
 
 	@GetMapping("/acceleration/{id}")
-	public List<CandidateDTO> findByAccelerationId(@PathVariable("id") Long id,
-			Pageable pageable) {
-		return candidateMapper.map(this.candidateService.findByAccelerationId(id, pageable));
+	public List<CandidateDTO> findByAccelerationId(@PathVariable("id") Long id) {
+		return candidateMapper.map(this.candidateService.findByAccelerationId(id));
 	}
 }

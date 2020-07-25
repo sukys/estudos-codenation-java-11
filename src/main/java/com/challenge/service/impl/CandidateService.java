@@ -3,7 +3,6 @@ package com.challenge.service.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.challenge.entity.Candidate;
@@ -17,31 +16,32 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CandidateService implements CandidateServiceInterface {
 
-    private CandidateRepository candidateRepository;
-
-    @Override
-    public Optional<Candidate> findById(Long userId, Long companyId, Long accelerationId) {
-        return candidateRepository.findByIdUserIdAndIdCompanyIdAndIdAccelerationId(userId, companyId, accelerationId);
-    }
-
-    @Override
-    public List<Candidate> findByCompanyId(Long companyId, Pageable pageable) {
-        return candidateRepository.findByIdCompanyId(companyId, pageable).getContent();
-    }
-
-    @Override
-    public List<Candidate> findByAccelerationId(Long accelerationId, Pageable pageable) {
-        return candidateRepository.findByIdAccelerationId(accelerationId, pageable).getContent();
-    }
+	private CandidateRepository candidateRepository;
 
 	@Override
-	public List<Candidate> findAll(Pageable pageable) {
-		return candidateRepository.findAll(pageable).getContent();
+	public Optional<Candidate> findById(Long userId, Long companyId, Long accelerationId) {
+		return candidateRepository.findByIdUserIdAndIdCompanyIdAndIdAccelerationId(userId, companyId, accelerationId);
+	}
+
+	@Override
+	public List<Candidate> findByCompanyId(Long companyId) {
+		return candidateRepository.findByIdCompanyId(companyId);
+	}
+
+	@Override
+	public List<Candidate> findByAccelerationId(Long accelerationId) {
+		return candidateRepository.findByIdAccelerationId(accelerationId);
+	}
+
+	@Override
+	public List<Candidate> findAll() {
+		return candidateRepository.findAll();
 	}
 
 	@Override
 	public void delete(Long userId, Long companyId, Long accelerationId) {
-		Candidate candidate = candidateRepository.findByIdUserIdAndIdCompanyIdAndIdAccelerationId(userId, companyId, accelerationId).get();
+		Candidate candidate = candidateRepository
+				.findByIdUserIdAndIdCompanyIdAndIdAccelerationId(userId, companyId, accelerationId).get();
 		candidateRepository.delete(candidate);
 	}
 
@@ -55,7 +55,4 @@ public class CandidateService implements CandidateServiceInterface {
 		candidateRepository.deleteById(id);
 	}
 
-    
-    
-    
 }

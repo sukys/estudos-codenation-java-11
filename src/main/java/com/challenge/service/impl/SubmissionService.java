@@ -2,7 +2,6 @@ package com.challenge.service.impl;
 
 import java.util.List;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.challenge.entity.Submission;
@@ -16,21 +15,21 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class SubmissionService implements SubmissionServiceInterface {
 
-    private SubmissionRepository repository;
+	private SubmissionRepository repository;
 
-    @Override
-    public List<Submission> findByChallengeIdAndAccelerationId(Long challengeId, Long accelerationId, Pageable pageable) {
-        return repository.findByChallengeIdAndAccelerationId(challengeId, accelerationId, pageable).getContent();
-    }
-    
+	@Override
+	public List<Submission> findByChallengeIdAndAccelerationId(Long challengeId, Long accelerationId) {
+		return repository.findByChallengeIdAndAccelerationId(challengeId, accelerationId);
+	}
+
 	@Override
 	public Submission save(Submission submission) {
 		return repository.save(submission);
 	}
-	
+
 	@Override
-	public List<Submission> findAll(Pageable pageable) {
-		return repository.findAll(pageable).getContent();
+	public List<Submission> findAll() {
+		return repository.findAll();
 	}
 
 	@Override
@@ -47,7 +46,7 @@ public class SubmissionService implements SubmissionServiceInterface {
 	@Override
 	public Submission findByChallengeIdAndUserId(Long challengeId, Long userId) {
 		return repository.findByIdChallengeIdAndIdUserId(challengeId, userId).get();
-		
+
 	}
-	
+
 }
