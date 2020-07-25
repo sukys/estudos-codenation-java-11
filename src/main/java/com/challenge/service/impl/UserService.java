@@ -4,6 +4,8 @@ import com.challenge.entity.User;
 import com.challenge.repository.UserRepository;
 import com.challenge.service.interfaces.UserServiceInterface;
 import lombok.AllArgsConstructor;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,13 +23,28 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public List<User> findByAccelerationName(String name) {
-        return userRepository.findByCandidatesIdAccelerationName(name);
+    public List<User> findByAccelerationName(String name, Pageable pageable) {
+        return userRepository.findByCandidatesIdAccelerationName(name, pageable).getContent(); 
     }
 
     @Override
-    public List<User> findByCompanyId(Long companyId) {
-        return userRepository.findByCandidatesIdCompanyId(companyId);
+    public List<User> findByCompanyId(Long companyId, Pageable pageable) {
+        return userRepository.findByCandidatesIdCompanyId(companyId, pageable).getContent();
     }
+
+	@Override
+	public User save(User user) {
+		return userRepository.save(user);
+	}
+
+	@Override
+	public List<User> findAll(Pageable pageable) {
+		return userRepository.findAll(pageable).getContent();
+	}
+
+	@Override
+	public void delete(Long id) {
+		userRepository.deleteById(id);
+	}
 
 }

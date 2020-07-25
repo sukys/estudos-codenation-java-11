@@ -1,14 +1,16 @@
 package com.challenge.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 import javax.persistence.EntityListeners;
 import javax.persistence.ManyToOne;
-import java.io.Serializable;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +19,9 @@ import java.io.Serializable;
 @EntityListeners(AuditingEntityListener.class)
 public class CandidateId implements Serializable {
 
-    @ManyToOne
+	private static final long serialVersionUID = -6368671839441946079L;
+
+	@ManyToOne
     private User user;
 
     @ManyToOne

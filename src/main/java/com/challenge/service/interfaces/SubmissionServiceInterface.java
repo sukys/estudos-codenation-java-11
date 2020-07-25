@@ -1,11 +1,18 @@
 package com.challenge.service.interfaces;
 
-import com.challenge.entity.Submission;
-
 import java.util.List;
 
-public interface SubmissionServiceInterface extends ServiceInterface<Submission> {
+import org.springframework.data.domain.Pageable;
 
-    List<Submission> findByChallengeIdAndAccelerationId(Long challengeId, Long accelerationId);
+import com.challenge.entity.Submission;
+import com.challenge.entity.SubmissionId;
+
+public interface SubmissionServiceInterface extends ServiceInterface<Submission, SubmissionId> {
+
+    List<Submission> findByChallengeIdAndAccelerationId(Long challengeId, Long accelerationId, Pageable pageable);
+    
+    void delete(Long challengeId, Long userId);
+
+    Submission findByChallengeIdAndUserId(Long challengeId, Long userId);
 
 }

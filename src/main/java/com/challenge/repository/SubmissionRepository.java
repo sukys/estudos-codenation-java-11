@@ -1,15 +1,17 @@
 package com.challenge.repository;
 
-import com.challenge.entity.Submission;
-import com.challenge.entity.SubmissionId;
+import java.math.BigDecimal;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
+import com.challenge.entity.Submission;
+import com.challenge.entity.SubmissionId;
 
 @Repository
 public interface SubmissionRepository extends JpaRepository<Submission, SubmissionId> {
@@ -23,5 +25,10 @@ public interface SubmissionRepository extends JpaRepository<Submission, Submissi
             " join s.id.challenge cha " +
             " join cha.accelerations acc " +
             " where acc.id = :accelerationId and cha.id = :challengeId ")
-    List<Submission> findByChallengeIdAndAccelerationId(@Param("challengeId") Long challengeId, @Param("accelerationId") Long accelerationId);
+    Page<Submission> findByChallengeIdAndAccelerationId(@Param("challengeId") Long challengeId, @Param("accelerationId") Long accelerationId, Pageable pageable);
+    
+    Optional<Submission> findByIdChallengeIdAndIdUserId(Long challengeId, Long userId);
+    
+    Page<Submission> findAll(Pageable pageable);
+    
 }

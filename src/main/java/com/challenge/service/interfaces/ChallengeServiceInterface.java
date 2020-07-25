@@ -4,8 +4,10 @@ import com.challenge.entity.Challenge;
 
 import java.util.List;
 
-public interface ChallengeServiceInterface extends ServiceInterface<Challenge> {
+import org.springframework.data.domain.Pageable;
 
-    List<Challenge> findByAccelerationIdAndUserId(Long accelerationId, Long userId);
+public interface ChallengeServiceInterface extends ServiceInterface<Challenge, Long> {
+
+    List<Challenge> findByAccelerationIdAndUserId(Long accelerationId, Long userId, Pageable pageable);
 
 }

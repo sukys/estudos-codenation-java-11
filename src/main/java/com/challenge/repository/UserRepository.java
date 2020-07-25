@@ -1,15 +1,18 @@
 package com.challenge.repository;
 
-import com.challenge.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.challenge.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    List<User> findByCandidatesIdAccelerationName(String name);
+	Page<User> findByCandidatesIdAccelerationName(String name, Pageable pageable);
 
-    List<User> findByCandidatesIdCompanyId(Long companyId);
+    Page<User> findByCandidatesIdCompanyId(Long companyId, Pageable pageable);
+    
+    Page<User> findAll(Pageable pageable);
 }
