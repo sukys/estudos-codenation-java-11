@@ -2,9 +2,11 @@ package com.challenge.endpoints;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.challenge.entity.Acceleration;
@@ -25,32 +28,52 @@ public class AccelerationEndpoint {
 	private AccelerationServiceInterface accelerationService;
 
 	@PostMapping
-	public Acceleration create(@RequestBody Acceleration acceleration) {
-		return this.accelerationService.save(acceleration);
+	public ResponseEntity<Acceleration> create(@Valid @RequestBody Acceleration acceleration) {
+		try {
+			acceleration = this.accelerationService.save(acceleration);
+			return new ResponseEntity<>(acceleration, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PutMapping
-	public Acceleration update(@RequestBody Acceleration acceleration) {
-		return this.accelerationService.save(acceleration);
+	public ResponseEntity<Acceleration> update(@Valid @RequestBody Acceleration acceleration) {
+		try {
+			acceleration = this.accelerationService.save(acceleration);
+			return new ResponseEntity<>(acceleration, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
-		this.accelerationService.delete(id);
-	}
-
-	@GetMapping
-	public List<Acceleration> findAll() {
-		return this.accelerationService.findAll();
+	public ResponseEntity<Acceleration> delete(@PathVariable("id") Long id) {
+		try {
+			this.accelerationService.delete(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@GetMapping("/{id}")
-	public Acceleration findById(@PathVariable("id") Long id) {
-		return this.accelerationService.findById(id).get();
+	public ResponseEntity<Acceleration> findById(@PathVariable("id") Long id) {
+		try {
+			Acceleration acceleration =  this.accelerationService.findById(id).get();
+			return new ResponseEntity<>(acceleration, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
-	@GetMapping("/company/{id}")
-	public List<Acceleration> findByCompanyId(@PathParam("id") Long id) {
-		return this.accelerationService.findByCompanyId(id);
+	@GetMapping
+	public ResponseEntity<List<Acceleration>> findByCompanyId(@RequestParam(value = "companyId", required = true) Long companyId) {
+		try {
+			List<Acceleration> accelerations =  this.accelerationService.findByCompanyId(companyId);
+			return new ResponseEntity<>(accelerations, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }
